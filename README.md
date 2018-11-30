@@ -15,7 +15,7 @@ Os produtos serão identificados por um **código** e terá as informações de 
 Serviço de pedidos que permitirá registrar, recuperar e atualizar as vendas dos seus produtos. As informações dos pedido consistem em um **código** identificador, **data** da compra, nome do **comprador**, **estado** (ex: novo, aprovado, entregue e cancelado), valor do **frete** e a lista de **itens** que foram vendidos - cada item possui: **código** do produto; **quantidade**; e o **preço** de venda.
 
 ### Relatórios
-Por fim, o sistema também deve fornecer a possibilidade de extrair um relatório que informa o **ticket médio** dado um intervalo de tempo (data inicial e final).
+Por fim, o sistema também deve fornecer a possibilidade de extrair um relatório que informa o **ticket médio** dado um intervalo de tempo (data inicial e final) - a definição de ticket médio é facilmente encontrada na web, mas fique à vontade para indicar a definição utilizada na solução.
 
 ## Considerações
 Considere que o sistema deve:
@@ -32,6 +32,11 @@ Considere que o sistema deve:
 - É necessário escrever testes automáticos para os serviços.
 - A escolha das ferramentas para realizar o desafio são livres, mas esperamos que você nos diga o porque usou cada uma delas.
 
+## Critérios de avaliação
+- Atendimento aos requisitos descritos;
+- Legibilidade da solução;
+- Cobertura dos testes;
+- Eficiência - evite desperdício de recursos!
 
 Crie um fork desse repositório e nos envie um **pull request**.
 
