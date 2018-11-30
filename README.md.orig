@@ -32,7 +32,9 @@ Considere que o sistema deve:
 - É necessário escrever testes automáticos para os serviços.
 - A escolha das ferramentas para realizar o desafio são livres, mas esperamos que você nos diga o porque usou cada uma delas.
 
-
 Crie um fork desse repositório e nos envie um **pull request**.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67a9791a89418b4bad9b3ffe2be8c8adc1ce3e85
 Não esqueça de ensinar como instalamos e rodamos seu projeto em nosso ambiente. :sunglasses:
