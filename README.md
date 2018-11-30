@@ -1,4 +1,4 @@
-# Desafio SkyHub - B2W
+# code-challenge
 
 Pedimos que a entrega do desafio seja realizada em até 5 dias. Caso precise de mais tempo, nos avise que podemos negociar o prazo.
 
