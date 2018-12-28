@@ -1,6 +1,6 @@
 # Desafio - SkyHub
 
-Pedimos que a entrega do desafio seja realizada em até 5 dias. Caso precise de mais tempo, nos avise que podemos negociar o prazo.
+Pedimos que a entrega do desafio seja realizada em até 10 dias. Caso precise de mais tempo, nos avise que podemos negociar o prazo.
 
 
 ## A loja do "seu" Manuel
