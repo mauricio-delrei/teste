@@ -9,7 +9,7 @@ Seu Manuel deseja expandir seus negócios e vender online, para isso ele te cont
 ### Produtos
 Serviço de produtos para que seja possível cadastrar, recuperar, atualizar e deletar os produtos de sua loja.
 
-Os produtos serão identificados por um **código** e terá as informações de **nome**, **descrição**, **estoque**, **preço** e mais alguns **atributos** que variam de produto para produto.
+Os produtos serão identificados por um **código** e terá as informações de **nome**, **descrição**, **estoque**, **preço** e mais alguns **atributos** que variam de produto para produto (customizáveis).
 
 ### Pedidos
 Serviço de pedidos que permitirá registrar, recuperar e atualizar as vendas dos seus produtos. As informações dos pedido consistem em um **código** identificador, **data** da compra, nome do **comprador**, **estado** (ex: novo, aprovado, entregue e cancelado), valor do **frete** e a lista de **itens** que foram vendidos - cada item possui: **código** do produto; **quantidade**; e o **preço** de venda.
