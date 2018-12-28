@@ -3,7 +3,7 @@
 Pedimos que a entrega do desafio seja realizada em até 5 dias. Caso precise de mais tempo, nos avise que podemos negociar o prazo.
 
 
-## Desafio - A loja do "seu" Manuel
+## A loja do "seu" Manuel
 Seu Manuel deseja expandir seus negócios e vender online, para isso ele te contratou para tocar o desenvolvimento do sistema que vai dar suporte à operação da loja. São listados abaixo os serviços que devem ser disponibilizados pelo sistema.
 
 ### Produtos
