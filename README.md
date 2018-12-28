@@ -4,7 +4,7 @@ Pedimos que a entrega do desafio seja realizada em até 5 dias. Caso precise de 
 
 
 ## A loja do "seu" Manuel
-Seu Manuel deseja expandir seus negócios e vender online, para isso ele te contratou para tocar o desenvolvimento do sistema que vai dar suporte à operação da loja. São listados abaixo os serviços que devem ser disponibilizados pelo sistema.
+Seu Manuel deseja expandir seus negócios e vender *online*, para isso ele te contratou para tocar o desenvolvimento do sistema que vai dar suporte à operação da loja. São listados abaixo os serviços que devem ser disponibilizados pelo sistema.
 
 ### Produtos
 Serviço de produtos para que seja possível cadastrar, recuperar, atualizar e deletar os produtos de sua loja.
@@ -31,7 +31,7 @@ Considere que o sistema deve:
 - Os dados devem ser armazenados em um banco também a seu critério;
 - É necessário escrever testes automáticos para os serviços;
 - A escolha das ferramentas para realizar o desafio são livres, mas esperamos que você nos diga o porque usou cada uma delas;
-- Implementar um procedimento de geração de dados de exemplo seria um **ponto extra**!
+- Implementar um procedimento de geração de dados de exemplo (*sample data*) seria um **ponto extra**!
 
 ## Critérios de avaliação
 - Atendimento aos requisitos descritos;
@@ -39,6 +39,6 @@ Considere que o sistema deve:
 - Cobertura dos testes;
 - Eficiência - evite desperdício de recursos!
 
-Crie um fork desse repositório e nos envie um **pull request**.
+Crie um *fork* desse repositório e nos envie um **pull request**.
 
 Não esqueça de ensinar como instalamos e rodamos seu projeto em nosso ambiente. :sunglasses:
