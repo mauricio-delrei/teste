@@ -1,0 +1,280 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "B2W Challenge"
+host: "localhost:8080"
+basePath: "/v2"
+tags:
+- name: "Products"
+  description: "Endpoints to operate on products"
+- name: "Orders"
+  description: "Endpoints to operate on orders"
+- name: "Reports"
+  description: "Endpoint to generate reports"
+paths:
+  /product:
+    post:
+      tags:
+      - "Products"
+      summary: "Add a new product to the store"
+      operationId: "addProduct"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Product object that will be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        201:
+          description: "Created"
+        405:
+          description: "Invalid input"
+  /product/{productId}:
+    get:
+      tags:
+        - "Products"
+      summary: "Gets a product by its id"
+      operationId: "getProduct"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "Product object that will be added"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Product"
+        404:
+          description: "Not found"
+    patch:
+      tags:
+        - "Products"
+      summary: "Patch a product by its id"
+      operationId: "patchProduct"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "Product object that will be patched"
+        required: true
+        type: "string"
+        format: "uuid"
+      - in: "body"
+        name: "body"
+        description: "Product object that will be patched"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Product"
+        404:
+          description: "Not found"
+    delete:
+      tags:
+        - "Products"
+      summary: "Delete a product by its id"
+      operationId: "deleteProduct"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "Product object that will be deleted"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "Success"
+        404:
+          description: "Not found"
+  /order:
+    post:
+      tags:
+      - "Orders"
+      summary: "Add a new order to the store"
+      operationId: "addOrder"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Order object that will be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        405:
+          description: "Invalid input"
+  /order/{orderId}:
+    get:
+      tags:
+        - "Orders"
+      summary: "Gets a order by its id"
+      operationId: "getOrder"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "Order object that will be added"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Order"
+        404:
+          description: "Not found"
+    patch:
+      tags:
+        - "Orders"
+      summary: "Patch a order by its id"
+      operationId: "patchOrder"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "Order object that will be patched"
+        required: true
+        type: "string"
+        format: "uuid"
+      - in: "body"
+        name: "body"
+        description: "Order object that will be patched"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Order"
+        404:
+          description: "Not found"
+    delete:
+      tags:
+        - "Orders"
+      summary: "Delete a order by its id"
+      operationId: "deleteOrder"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "Order object that will be deleted"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "Success"
+        404:
+          description: "Not found"
+  /report:
+    get:
+      tags:
+        - "Reports"
+      summary: "Gets a report"
+      operationId: "getReport"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "period[start]"
+        in: "query"
+        description: "Start date for the report coverage"
+        required: true
+        type: "string"
+        format: "datetime"
+      - name: "period[end]"
+        in: "query"
+        description: "End date for the report coverage"
+        required: true
+        type: "string"
+        format: "datetime"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Report"
+definitions:
+  Product:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      stock:
+        type: number
+      price:
+        type: number
+  Order:
+    type: "object"
+    properties:
+      id:
+        type: string
+      date:
+        type: string
+      customer:
+        type: string
+      status:
+        type: string
+      shipping:
+        type: number
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+            quantity:
+              type: number
+            price:
+              type: number
+  Report:
+    type: object
+    properties:
+      initial_date:
+        type: string
+      final_date:
+        type: string
+      atp:
+        type: number
+        description: Average Ticket Price
