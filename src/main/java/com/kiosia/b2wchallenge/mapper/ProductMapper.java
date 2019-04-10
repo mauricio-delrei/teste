@@ -1,4 +1,4 @@
-package com.kiosia.b2wchallenge.controller;
+package com.kiosia.b2wchallenge.mapper;
 
 import com.kiosia.b2wchallenge.model.Product;
 import com.kiosia.b2wchallenge.vo.ProductVo;

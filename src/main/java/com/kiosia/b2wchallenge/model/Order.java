@@ -33,6 +33,19 @@ public class Order {
     this.orderItemList = orderItemList;
   }
 
+  private Order(Builder builder) {
+    setId(builder.id);
+    date = builder.date;
+    customer = builder.customer;
+    setStatus(builder.status);
+    shipping = builder.shipping;
+    orderItemList = builder.orderItemList;
+  }
+
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
   public Long getId() {
     return id;
   }
@@ -59,5 +72,55 @@ public class Order {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public static final class Builder {
+    private Long id;
+    private Date date;
+    private String customer;
+    private String status;
+    private Double shipping;
+    private List<OrderItem> orderItemList;
+
+    private Builder() {
+    }
+
+    public Builder withId(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder withDate(Date date) {
+      this.date = date;
+      return this;
+    }
+
+    public Builder withCustomer(String customer) {
+      this.customer = customer;
+      return this;
+    }
+
+    public Builder withStatus(String status) {
+      this.status = status;
+      return this;
+    }
+
+    public Builder withShipping(Double shipping) {
+      this.shipping = shipping;
+      return this;
+    }
+
+    public Builder withOrderItemList(List<OrderItem> orderItemList) {
+      this.orderItemList = orderItemList;
+      return this;
+    }
+
+    public Order build() {
+      return new Order(this);
+    }
   }
 }

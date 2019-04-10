@@ -1,6 +1,7 @@
 package com.kiosia.b2wchallenge.controller;
 
 import com.kiosia.b2wchallenge.error.NotFoundException;
+import com.kiosia.b2wchallenge.mapper.ProductMapper;
 import com.kiosia.b2wchallenge.model.Product;
 import com.kiosia.b2wchallenge.service.ProductService;
 import com.kiosia.b2wchallenge.vo.ProductVo;
@@ -11,14 +12,28 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@Api(value = "News Screening API")
+@Api(value = "SkyHub Challenge API")
 @RequestMapping("/product")
 public class ProductController {
 
   @Autowired
   private ProductService productService;
+
+  @GetMapping(value = "")
+  @ApiOperation(
+      value = "Fetch all Products",
+      tags = {"Products"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful operation")
+  })
+  public List<ProductVo> getProducts() {
+    return productService.findAll().stream().map(ProductMapper::domainToVo).collect(Collectors.toList());
+  }
+
 
   @GetMapping(value = "/{product_id}")
   @ApiOperation(
@@ -51,7 +66,7 @@ public class ProductController {
     return ProductMapper.domainToVo(productService.updateById(id, ProductMapper.voToDomain(productVo)));
   }
 
-  @PostMapping(value = "/")
+  @PostMapping(value = "")
   @ApiOperation(
       value = "Create a Product with the data on the body",
       tags = {"Products"})

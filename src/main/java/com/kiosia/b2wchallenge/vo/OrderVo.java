@@ -12,6 +12,23 @@ public class OrderVo {
   private Long id;
   private String status;
 
+  public OrderVo() {
+    // Do nothing
+  }
+
+  private OrderVo(Builder builder) {
+    setDate(builder.date);
+    setCustomer(builder.customer);
+    setShipping(builder.shipping);
+    setItems(builder.items);
+    setId(builder.id);
+    setStatus(builder.status);
+  }
+
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
   public Date getDate() {
     return date;
   }
@@ -64,13 +81,49 @@ public class OrderVo {
     this.items.add(orderItemVo);
   }
 
-  @Override
-  public String toString() {
-    return "{\"id\": "+id+
-        ", \"date\": "+date+
-        ", \"customer\": \""+customer+
-        "\", \"shipping\": "+shipping+
-        ", \"status\": \""+status+
-        "\", \"items\": "+items+"}";
+  public static final class Builder {
+    private Date date;
+    private String customer;
+    private Double shipping;
+    private List<OrderItemVo> items;
+    private Long id;
+    private String status;
+
+    private Builder() {
+    }
+
+    public Builder withDate(Date date) {
+      this.date = date;
+      return this;
+    }
+
+    public Builder withCustomer(String customer) {
+      this.customer = customer;
+      return this;
+    }
+
+    public Builder withShipping(Double shipping) {
+      this.shipping = shipping;
+      return this;
+    }
+
+    public Builder withItems(List<OrderItemVo> items) {
+      this.items = items;
+      return this;
+    }
+
+    public Builder withId(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder withStatus(String status) {
+      this.status = status;
+      return this;
+    }
+
+    public OrderVo build() {
+      return new OrderVo(this);
+    }
   }
 }

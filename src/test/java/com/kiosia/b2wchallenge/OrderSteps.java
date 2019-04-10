@@ -51,7 +51,11 @@ public class OrderSteps {
       Integer itemQtt = Integer.getInteger(item.get(1));
       Double itemPrice = Double.parseDouble(item.get(2));
 
-      OrderItemVo orderItemVo = new OrderItemVo(itemId, itemQtt, itemPrice);
+      OrderItemVo orderItemVo = OrderItemVo.newBuilder()
+          .withPrice(itemPrice)
+          .withQuantity(itemQtt)
+          .withProduct(itemId)
+          .build();
 
       request.addItem(orderItemVo);
     });

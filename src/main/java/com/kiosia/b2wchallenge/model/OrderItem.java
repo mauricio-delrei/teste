@@ -11,8 +11,8 @@ public class OrderItem {
   @ManyToOne
   @JoinColumn(name = "order_id")
   private Order order;
-  @Column(name = "product_id")
-  private Long product_id;
+  @Column
+  private Long productId;
   @Column
   private Integer quantity;
   @Column
@@ -22,11 +22,23 @@ public class OrderItem {
     // Do nothing
   }
 
-  public OrderItem(Order order, Long product_id, Integer quantity, Double price) {
+  public OrderItem(Order order, Long productId, Integer quantity, Double price) {
     this.order = order;
-    this.product_id = product_id;
+    this.productId = productId;
     this.quantity = quantity;
     this.price = price;
+  }
+
+  private OrderItem(Builder builder) {
+    id = builder.id;
+    order = builder.order;
+    productId = builder.productId;
+    quantity = builder.quantity;
+    price = builder.price;
+  }
+
+  public static Builder newBuilder() {
+    return new Builder();
   }
 
   public Long getId() {
@@ -37,8 +49,8 @@ public class OrderItem {
     return order;
   }
 
-  public Long getProduct_id() {
-    return product_id;
+  public Long getProductId() {
+    return productId;
   }
 
   public Integer getQuantity() {
@@ -47,5 +59,50 @@ public class OrderItem {
 
   public Double getPrice() {
     return price;
+  }
+
+  public void setOrder(Order order) {
+    this.order = order;
+  }
+
+
+  public static final class Builder {
+    private Long id;
+    private Order order;
+    private Long productId;
+    private Integer quantity;
+    private Double price;
+
+    private Builder() {
+    }
+
+    public Builder withId(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder withOrder(Order order) {
+      this.order = order;
+      return this;
+    }
+
+    public Builder withProductId(Long productId) {
+      this.productId = productId;
+      return this;
+    }
+
+    public Builder withQuantity(Integer quantity) {
+      this.quantity = quantity;
+      return this;
+    }
+
+    public Builder withPrice(Double price) {
+      this.price = price;
+      return this;
+    }
+
+    public OrderItem build() {
+      return new OrderItem(this);
+    }
   }
 }
