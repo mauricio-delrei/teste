@@ -83,12 +83,33 @@ public class ProductController {
   @ApiOperation(
       value = "Create a Product with the data on the body",
       tags = {"Products"})
-  @ResponseStatus(value = HttpStatus.CREATED)
+  @ApiResponses(value = {
+      @ApiResponse(code = 201, message = "Created")
+  })
   public ProductResponseVo postProduct(
       @NotNull @ApiParam(value = "Request body")
       @Validated @RequestBody ProductVo productVo) {
     Product product = ProductMapper.voToDomain(productVo);
     final ProductVo savedProduct = ProductMapper.domainToVo(productService.save(product));
     return new ProductResponseVo(savedProduct, HttpStatus.CREATED);
+  }
+
+  @DeleteMapping(value = "/{product_id}")
+  @ApiOperation(
+      value = "Delete a Product",
+      tags = {"Products"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful operation"),
+      @ApiResponse(code = 404, message = "Not found")
+  })
+  public ProductResponseVo deleteProduct(
+      @NotNull @ApiParam(value = "Product Id")
+      @PathVariable("product_id") final Long id) {
+    try {
+      productService.delete(id);
+    } catch (NotFoundException e) {
+      return new ProductResponseVo(HttpStatus.NOT_FOUND);
+    }
+    return new ProductResponseVo(HttpStatus.OK);
   }
 }

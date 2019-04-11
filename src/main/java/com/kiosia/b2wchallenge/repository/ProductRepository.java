@@ -21,4 +21,6 @@ public interface ProductRepository extends Repository<Product, Long> {
   @Modifying
   @Query("UPDATE Product SET stock = stock - :newStock WHERE id = :productId")
   void decrementStock(@Param("productId") Long productId, @Param("newStock") Integer desiredQtt);
+
+  void deleteById(Long id);
 }

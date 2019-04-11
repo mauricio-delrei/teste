@@ -60,4 +60,10 @@ public class ProductService {
 
     productRepository.decrementStock(productId, desiredQtt);
   }
+
+  public void delete(Long id) throws NotFoundException {
+    productRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Product with id "+id+" was not found"));
+    productRepository.deleteById(id);
+  }
 }
