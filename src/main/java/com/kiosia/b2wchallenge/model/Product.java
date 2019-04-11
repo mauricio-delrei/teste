@@ -1,6 +1,7 @@
 package com.kiosia.b2wchallenge.model;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "products")
@@ -29,11 +30,11 @@ public class Product {
   }
 
   private Product(Builder builder) {
-    setId(builder.id);
-    name = builder.name;
-    description = builder.description;
-    stock = builder.stock;
-    currentPrice = builder.currentPrice;
+    Optional.ofNullable(builder.id).ifPresent(this::setId);
+    Optional.ofNullable(builder.name).ifPresent(this::setName);
+    Optional.ofNullable(builder.description).ifPresent(this::setDescription);
+    Optional.ofNullable(builder.stock).ifPresent(this::setStock);
+    Optional.ofNullable(builder.currentPrice).ifPresent(this::setCurrentPrice);
   }
 
   public static Builder newBuilder() {
@@ -44,24 +45,60 @@ public class Product {
     return id;
   }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getDescription() {
     return description;
   }
 
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public Integer getStock() {
     return stock;
+  }
+
+  public void setStock(Integer stock) {
+    this.stock = stock;
   }
 
   public Double getCurrentPrice() {
     return currentPrice;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setCurrentPrice(Double currentPrice) {
+    this.currentPrice = currentPrice;
+  }
+
+  public void merge(Product product) {
+    final Integer stock = product.getStock();
+    final Double currentPrice = product.getCurrentPrice();
+    final String description = product.getDescription();
+    final String name = product.getName();
+
+    if(stock != null) {
+      this.stock = stock;
+    }
+    if(currentPrice != null) {
+      this.currentPrice = currentPrice;
+    }
+    if(description != null) {
+      this.description = description;
+    }
+    if(name != null) {
+      this.name = name;
+    }
   }
 
   public static final class Builder {

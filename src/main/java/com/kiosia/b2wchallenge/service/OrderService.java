@@ -32,9 +32,11 @@ public class OrderService {
     throw new NotFoundException("Order with id "+id+" was not found");
   }
 
-  public Order updateById(Long id, Order order) {
-    order.setId(id);
-    return orderRepository.save(order);
+  public Order patch(Long id, Order order) throws NotFoundException {
+    Order o = orderRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Order with id "+id+" was not found"));
+    o.merge(order);
+    return orderRepository.save(o);
   }
 
   public List<Order> findAll() {

@@ -42,7 +42,19 @@ public class OrderController {
       @ApiResponse(code = 200, message = "Successful operation")
   })
   public MultipleOrdersVo getOrders() {
-    final List<OrderVo> foundOrders = orderService.findAll().stream().map(OrderMapper::domainToVo).collect(Collectors.toList());
+    final List<OrderVo> foundOrders = orderService.findAll()
+        .stream()
+        .map(OrderMapper::domainToVo)
+        .collect(Collectors.toList());
+
+    foundOrders.forEach(orderVo -> {
+      final List<OrderItemVo> items = orderItemService.findByOrderId(orderVo.getId())
+          .stream()
+          .map(OrderItemMapper::domainToVo)
+          .collect(Collectors.toList());
+      orderVo.setItems(items);
+    });
+
     return new MultipleOrdersVo(foundOrders, HttpStatus.OK);
   }
 
@@ -64,7 +76,8 @@ public class OrderController {
       return new OrderResponseVo(HttpStatus.NOT_FOUND);
     }
 
-    final List<OrderItemVo> items = orderItemService.findByOrderId(id).stream()
+    final List<OrderItemVo> items = orderItemService.findByOrderId(id)
+        .stream()
         .map(OrderItemMapper::domainToVo)
         .collect(Collectors.toList());
     orderVo.setItems(items);
@@ -85,13 +98,15 @@ public class OrderController {
       @PathVariable("order_id") final Long id,
       @NotNull @ApiParam(value = "Request body")
       @Validated @RequestBody OrderVo orderVo) {
-
-    final OrderVo savedOrder;
+    final Order updatedOrder;
     try {
-      savedOrder = OrderMapper.domainToVo(orderService.updateById(id, OrderMapper.voToDomain(orderVo)));
+      updatedOrder = orderService.patch(id, OrderMapper.voToDomain(orderVo));
     } catch (ParseException e) {
       return new OrderResponseVo(HttpStatus.UNPROCESSABLE_ENTITY);
+    } catch (NotFoundException e) {
+      return new OrderResponseVo(HttpStatus.NOT_FOUND);
     }
+    final OrderVo savedOrder = OrderMapper.domainToVo(updatedOrder);
     return new OrderResponseVo(savedOrder, HttpStatus.OK);
   }
 

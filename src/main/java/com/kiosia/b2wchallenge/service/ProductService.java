@@ -30,9 +30,11 @@ public class ProductService {
     throw new NotFoundException("Product with id "+id+" was not found");
   }
 
-  public Product updateById(Long id, Product product) {
-    product.setId(id);
-    return productRepository.save(product);
+  public Product patch(Long id, Product product) throws NotFoundException {
+    Product p = productRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Product with id "+id+" was not found"));
+    p.merge(product);
+    return productRepository.save(p);
   }
 
   public List<Product> findAll() {

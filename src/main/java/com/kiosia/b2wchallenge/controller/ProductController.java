@@ -69,7 +69,13 @@ public class ProductController {
       @PathVariable("product_id") final Long id,
       @NotNull @ApiParam(value = "Request body")
       @Validated @RequestBody ProductVo productVo) {
-    final ProductVo savedProduct = ProductMapper.domainToVo(productService.updateById(id, ProductMapper.voToDomain(productVo)));
+    final Product updatedProduct;
+    try {
+      updatedProduct = productService.patch(id, ProductMapper.voToDomain(productVo));
+    } catch (NotFoundException e) {
+      return new ProductResponseVo(HttpStatus.NOT_FOUND);
+    }
+    final ProductVo savedProduct = ProductMapper.domainToVo(updatedProduct);
     return new ProductResponseVo(savedProduct, HttpStatus.OK);
   }
 

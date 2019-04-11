@@ -3,6 +3,7 @@ package com.kiosia.b2wchallenge.model;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "orders")
@@ -34,12 +35,12 @@ public class Order {
   }
 
   private Order(Builder builder) {
-    setId(builder.id);
-    date = builder.date;
-    customer = builder.customer;
-    setStatus(builder.status);
-    shipping = builder.shipping;
-    orderItemList = builder.orderItemList;
+    Optional.ofNullable(builder.id).ifPresent(this::setId);
+    Optional.ofNullable(builder.date).ifPresent(this::setDate);
+    Optional.ofNullable(builder.customer).ifPresent(this::setCustomer);
+    Optional.ofNullable(builder.status).ifPresent(this::setStatus);
+    Optional.ofNullable(builder.shipping).ifPresent(this::setShipping);
+    Optional.ofNullable(builder.orderItemList).ifPresent(this::setOrderItemList);
   }
 
   public static Builder newBuilder() {
@@ -50,32 +51,72 @@ public class Order {
     return id;
   }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public Date getDate() {
     return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
   }
 
   public String getCustomer() {
     return customer;
   }
 
+  public void setCustomer(String customer) {
+    this.customer = customer;
+  }
+
   public String getStatus() {
     return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public Double getShipping() {
     return shipping;
   }
 
+  public void setShipping(Double shipping) {
+    this.shipping = shipping;
+  }
+
   public List<OrderItem> getOrderItemList() {
     return orderItemList;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setOrderItemList(List<OrderItem> orderItemList) {
+    this.orderItemList = orderItemList;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void merge(Order order) {
+    final Date date = order.getDate();
+    final String customer = order.getCustomer();
+    final String status = order.getStatus();
+    final Double shipping = order.getShipping();
+    final List<OrderItem> orderItemList = order.getOrderItemList();
+
+    if(date != null) {
+      this.date = date;
+    }
+    if(customer != null) {
+      this.customer = customer;
+    }
+    if(status != null) {
+      this.status = status;
+    }
+    if(shipping != null) {
+      this.shipping = shipping;
+    }
+    if(orderItemList != null) {
+      this.orderItemList = orderItemList;
+    }
   }
 
   public static final class Builder {

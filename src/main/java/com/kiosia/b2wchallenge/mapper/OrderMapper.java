@@ -24,8 +24,12 @@ public class OrderMapper {
   }
 
   public static Order voToDomain(OrderVo orderVo) throws ParseException {
-    DateFormat fmt = new SimpleDateFormat(DATE_PATTERN);
-    final Date date = new Date(fmt.parse(orderVo.getDate()).getTime());
+    final String dateString = orderVo.getDate();
+    Date date = null;
+    if(dateString != null) {
+      DateFormat fmt = new SimpleDateFormat(DATE_PATTERN);
+      date = new Date(fmt.parse(dateString).getTime());
+    }
 
     return Order.newBuilder()
         .withDate(date)
