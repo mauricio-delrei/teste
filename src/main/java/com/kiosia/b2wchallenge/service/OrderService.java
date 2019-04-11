@@ -20,7 +20,7 @@ public class OrderService {
   private OrderItemRepository orderItemRepository;
 
   public Order save(Order order) {
-    order.setStatus(OrderStatus.PENDING);
+    order.setStatus(OrderStatus.NEW);
     return orderRepository.save(order);
   }
 

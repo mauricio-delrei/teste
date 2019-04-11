@@ -6,6 +6,10 @@ public class OrderItemVo {
   private Integer quantity;
   private Double price;
 
+  public OrderItemVo() {
+    // Do nothing
+  }
+
   public OrderItemVo(Long id, Long product, Integer quantity, Double price) {
     this.id = id;
     this.quantity = quantity;
@@ -77,5 +81,15 @@ public class OrderItemVo {
     public OrderItemVo build() {
       return new OrderItemVo(this);
     }
+  }
+
+  @Override
+  public String toString() {
+    return "OrderItemVo{" +
+        "id=" + id +
+        ", product=" + product +
+        ", quantity=" + quantity +
+        ", price=" + price +
+        '}';
   }
 }

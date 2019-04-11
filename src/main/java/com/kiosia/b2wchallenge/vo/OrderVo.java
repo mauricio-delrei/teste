@@ -1,11 +1,10 @@
 package com.kiosia.b2wchallenge.vo;
 
-import java.sql.Date;
 import java.util.List;
 
 public class OrderVo {
 
-  private Date date;
+  private String date;
   private String customer;
   private Double shipping;
   private List<OrderItemVo> items;
@@ -29,11 +28,11 @@ public class OrderVo {
     return new Builder();
   }
 
-  public Date getDate() {
+  public String getDate() {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(String date) {
     this.date = date;
   }
 
@@ -82,7 +81,7 @@ public class OrderVo {
   }
 
   public static final class Builder {
-    private Date date;
+    private String date;
     private String customer;
     private Double shipping;
     private List<OrderItemVo> items;
@@ -92,7 +91,7 @@ public class OrderVo {
     private Builder() {
     }
 
-    public Builder withDate(Date date) {
+    public Builder withDate(String date) {
       this.date = date;
       return this;
     }
@@ -125,5 +124,17 @@ public class OrderVo {
     public OrderVo build() {
       return new OrderVo(this);
     }
+  }
+
+  @Override
+  public String toString() {
+    return "OrderVo{" +
+        "date=" + date +
+        ", customer='" + customer + '\'' +
+        ", shipping=" + shipping +
+        ", items=" + items +
+        ", id=" + id +
+        ", status='" + status + '\'' +
+        '}';
   }
 }

@@ -5,13 +5,22 @@ import com.kiosia.b2wchallenge.vo.ProductVo;
 
 public class ProductMapper {
   public static ProductVo domainToVo(Product product) {
-    //String name, String description, Integer stock, Double current_price
-    final ProductVo productVo = new ProductVo(product.getName(), product.getDescription(), product.getStock(), product.getCurrentPrice());
-    productVo.setId(product.getId());
-    return productVo;
+    return ProductVo.newBuilder()
+        .withDescription(product.getDescription())
+        .withId(product.getId())
+        .withName(product.getName())
+        .withStock(product.getStock())
+        .withCurrentPrice(product.getCurrentPrice())
+        .build();
   }
 
   public static Product voToDomain(ProductVo productVo) {
-    return new Product(productVo.getName(), productVo.getDescription(), productVo.getStock(), productVo.getCurrent_price());
+    return Product.newBuilder()
+        .withDescription(productVo.getDescription())
+        .withId(productVo.getId())
+        .withName(productVo.getName())
+        .withStock(productVo.getStock())
+        .withCurrentPrice(productVo.getCurrentPrice())
+        .build();
   }
 }

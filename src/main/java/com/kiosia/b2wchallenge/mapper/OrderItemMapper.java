@@ -25,6 +25,7 @@ public class OrderItemMapper {
         .withId(orderItem.getId())
         .withPrice(orderItem.getPrice())
         .withQuantity(orderItem.getQuantity())
+        .withProduct(orderItem.getProductId())
         .build();
   }
 

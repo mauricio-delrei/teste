@@ -1,18 +1,25 @@
 package com.kiosia.b2wchallenge.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProductVo {
 
   private Long id;
-  private final String name;
-  private final String description;
-  private final Integer stock;
-  private final Double current_price;
+  private String name;
+  private String description;
+  private Integer stock;
+  @JsonProperty(value = "current_price")
+  private Double currentPrice;
 
-  public ProductVo(String name, String description, Integer stock, Double current_price) {
+  public ProductVo() {
+    // Do nothing
+  }
+
+  public ProductVo(String name, String description, Integer stock, Double currentPrice) {
     this.name = name;
     this.description = description;
     this.stock = stock;
-    this.current_price = current_price;
+    this.currentPrice = currentPrice;
   }
 
   private ProductVo(Builder builder) {
@@ -20,7 +27,7 @@ public class ProductVo {
     name = builder.name;
     description = builder.description;
     stock = builder.stock;
-    current_price = builder.current_price;
+    currentPrice = builder.currentPrice;
   }
 
   public static Builder newBuilder() {
@@ -31,33 +38,48 @@ public class ProductVo {
     return id;
   }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getDescription() {
     return description;
   }
 
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public Integer getStock() {
     return stock;
   }
 
-  public Double getCurrent_price() {
-    return current_price;
+  public void setStock(Integer stock) {
+    this.stock = stock;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public Double getCurrentPrice() {
+    return currentPrice;
   }
 
+  public void setCurrentPrice(Double currentPrice) {
+    this.currentPrice = currentPrice;
+  }
 
   public static final class Builder {
     private Long id;
     private String name;
     private String description;
     private Integer stock;
-    private Double current_price;
+    private Double currentPrice;
 
     private Builder() {
     }
@@ -82,8 +104,8 @@ public class ProductVo {
       return this;
     }
 
-    public Builder withCurrent_price(Double current_price) {
-      this.current_price = current_price;
+    public Builder withCurrentPrice(Double currentPrice) {
+      this.currentPrice = currentPrice;
       return this;
     }
 

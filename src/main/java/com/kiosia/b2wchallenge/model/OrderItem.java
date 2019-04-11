@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "order_items")
 public class OrderItem {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @ManyToOne
   @JoinColumn(name = "order_id")

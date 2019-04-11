@@ -4,6 +4,8 @@ import com.kiosia.b2wchallenge.error.NotFoundException;
 import com.kiosia.b2wchallenge.mapper.ProductMapper;
 import com.kiosia.b2wchallenge.model.Product;
 import com.kiosia.b2wchallenge.service.ProductService;
+import com.kiosia.b2wchallenge.vo.MultipleProductResponseVo;
+import com.kiosia.b2wchallenge.vo.ProductResponseVo;
 import com.kiosia.b2wchallenge.vo.ProductVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,9 @@ public class ProductController {
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "Successful operation")
   })
-  public List<ProductVo> getProducts() {
-    return productService.findAll().stream().map(ProductMapper::domainToVo).collect(Collectors.toList());
+  public MultipleProductResponseVo getProducts() {
+    final List<ProductVo> productVos = productService.findAll().stream().map(ProductMapper::domainToVo).collect(Collectors.toList());
+    return new MultipleProductResponseVo(productVos, HttpStatus.OK);
   }
 
 
@@ -43,10 +46,14 @@ public class ProductController {
       @ApiResponse(code = 200, message = "Successful operation"),
       @ApiResponse(code = 404, message = "Not found")
   })
-  public ProductVo getProduct(
+  public ProductResponseVo getProduct(
       @NotNull @ApiParam(value = "Product Id")
-      @PathVariable("product_id") Long id) throws NotFoundException {
-    return ProductMapper.domainToVo(productService.findById(id));
+      @PathVariable("product_id") Long id) {
+    try {
+      return new ProductResponseVo(ProductMapper.domainToVo(productService.findById(id)), HttpStatus.OK);
+    } catch (NotFoundException e) {
+      return new ProductResponseVo(HttpStatus.NOT_FOUND);
+    }
   }
 
   @PatchMapping(value = "/{product_id}")
@@ -57,13 +64,13 @@ public class ProductController {
       @ApiResponse(code = 200, message = "Successful operation"),
       @ApiResponse(code = 404, message = "Not found")
   })
-  public ProductVo patchProduct(
+  public ProductResponseVo patchProduct(
       @NotNull @ApiParam(value = "Product Id")
       @PathVariable("product_id") final Long id,
       @NotNull @ApiParam(value = "Request body")
       @Validated @RequestBody ProductVo productVo) {
-
-    return ProductMapper.domainToVo(productService.updateById(id, ProductMapper.voToDomain(productVo)));
+    final ProductVo savedProduct = ProductMapper.domainToVo(productService.updateById(id, ProductMapper.voToDomain(productVo)));
+    return new ProductResponseVo(savedProduct, HttpStatus.OK);
   }
 
   @PostMapping(value = "")
@@ -71,10 +78,11 @@ public class ProductController {
       value = "Create a Product with the data on the body",
       tags = {"Products"})
   @ResponseStatus(value = HttpStatus.CREATED)
-  public ProductVo postProduct(
+  public ProductResponseVo postProduct(
       @NotNull @ApiParam(value = "Request body")
       @Validated @RequestBody ProductVo productVo) {
     Product product = ProductMapper.voToDomain(productVo);
-    return ProductMapper.domainToVo(productService.save(product));
+    final ProductVo savedProduct = ProductMapper.domainToVo(productService.save(product));
+    return new ProductResponseVo(savedProduct, HttpStatus.CREATED);
   }
 }

@@ -1,0 +1,13 @@
+finish get all orders
+patch of products
+patch of orders
+deletion of products (deal with cascading)
+reports generation
+add readme
+postman collection
+more integration scenarios
+unit tests
+standalone db (instead of h2)
+script to populate db
+pagination
+liquibase

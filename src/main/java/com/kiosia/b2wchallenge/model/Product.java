@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "products")
 public class Product {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @Column
   private String name;
@@ -15,17 +15,17 @@ public class Product {
   @Column
   private Integer stock;
   @Column
-  private Double current_price;
+  private Double currentPrice;
 
   public Product() {
     // Do nothing
   }
 
-  public Product(String name, String description, Integer stock, Double current_price) {
+  public Product(String name, String description, Integer stock, Double currentPrice) {
     this.name = name;
     this.description = description;
     this.stock = stock;
-    this.current_price = current_price;
+    this.currentPrice = currentPrice;
   }
 
   private Product(Builder builder) {
@@ -33,7 +33,7 @@ public class Product {
     name = builder.name;
     description = builder.description;
     stock = builder.stock;
-    current_price = builder.current_price;
+    currentPrice = builder.currentPrice;
   }
 
   public static Builder newBuilder() {
@@ -57,20 +57,19 @@ public class Product {
   }
 
   public Double getCurrentPrice() {
-    return current_price;
+    return currentPrice;
   }
 
   public void setId(Long id) {
     this.id = id;
   }
 
-
   public static final class Builder {
     private Long id;
     private String name;
     private String description;
     private Integer stock;
-    private Double current_price;
+    private Double currentPrice;
 
     private Builder() {
     }
@@ -95,8 +94,8 @@ public class Product {
       return this;
     }
 
-    public Builder withCurrent_price(Double current_price) {
-      this.current_price = current_price;
+    public Builder withCurrentPrice(Double currentPrice) {
+      this.currentPrice = currentPrice;
       return this;
     }
 

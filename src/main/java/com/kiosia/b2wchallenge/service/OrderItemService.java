@@ -26,9 +26,13 @@ public class OrderItemService {
   }
 
   public List<OrderItem> save(List<OrderItemVo> orderItemVo, Order order) {
-    List<OrderItem> orderItems = orderItemVo.stream().map(OrderItemMapper::voToDomain).collect(Collectors.toList());
+    List<OrderItem> orderItems = orderItemVo.stream()
+        .map(OrderItemMapper::voToDomain)
+        .collect(Collectors.toList());
     orderItems.forEach(orderItem -> orderItem.setOrder(order));
-    return orderItems.stream().map(orderItemRepository::save).collect(Collectors.toList());
+    return orderItems.stream()
+        .map(orderItemRepository::save)
+        .collect(Collectors.toList());
   }
 
   public void fillPrices(OrderItemVo orderItemVo) {
