@@ -3,8 +3,8 @@ postman collection
 more integration scenarios
 unit tests
 standalone db (instead of h2)
+liquibase
 script to populate db
 pagination
 post batch products
 post batch orders
-liquibase
