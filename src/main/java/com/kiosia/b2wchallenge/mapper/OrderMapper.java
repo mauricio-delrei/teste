@@ -20,6 +20,7 @@ public class OrderMapper {
         .withDate(fmt.format(order.getDate()))
         .withStatus(order.getStatus())
         .withShipping(order.getShipping())
+        .withTotal(order.getTotal())
         .build();
   }
 
@@ -36,6 +37,7 @@ public class OrderMapper {
         .withCustomer(orderVo.getCustomer())
         .withStatus(orderVo.getStatus())
         .withShipping(orderVo.getShipping())
+        .withTotal(orderVo.getTotal())
         .build();
   }
 }

@@ -19,6 +19,8 @@ public class Order {
   private String status;
   @Column
   private Double shipping;
+  @Column
+  private Double total;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
   private List<OrderItem> orderItemList;
 
@@ -31,7 +33,7 @@ public class Order {
     this.customer = customer;
     this.status = status;
     this.shipping = shipping;
-    this.orderItemList = orderItemList;
+    this.setOrderItemList(orderItemList);
   }
 
   private Order(Builder builder) {
@@ -41,6 +43,7 @@ public class Order {
     Optional.ofNullable(builder.status).ifPresent(this::setStatus);
     Optional.ofNullable(builder.shipping).ifPresent(this::setShipping);
     Optional.ofNullable(builder.orderItemList).ifPresent(this::setOrderItemList);
+    Optional.ofNullable(builder.total).ifPresent(this::setTotal);
   }
 
   public static Builder newBuilder() {
@@ -95,6 +98,14 @@ public class Order {
     this.orderItemList = orderItemList;
   }
 
+  public Double getTotal() {
+    return total;
+  }
+
+  public void setTotal(Double total) {
+    this.total = total;
+  }
+
   public void merge(Order order) {
     final Date date = order.getDate();
     final String customer = order.getCustomer();
@@ -117,6 +128,8 @@ public class Order {
     if(orderItemList != null) {
       this.orderItemList = orderItemList;
     }
+    this.total = 0D;
+    this.orderItemList.forEach(item -> this.total =+ item.getPrice() * item.getQuantity());
   }
 
   public static final class Builder {
@@ -126,6 +139,7 @@ public class Order {
     private String status;
     private Double shipping;
     private List<OrderItem> orderItemList;
+    private Double total;
 
     private Builder() {
     }
@@ -157,6 +171,11 @@ public class Order {
 
     public Builder withOrderItemList(List<OrderItem> orderItemList) {
       this.orderItemList = orderItemList;
+      return this;
+    }
+
+    public Builder withTotal(Double total) {
+      this.total = total;
       return this;
     }
 

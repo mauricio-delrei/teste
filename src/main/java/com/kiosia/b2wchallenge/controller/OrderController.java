@@ -123,6 +123,7 @@ public class OrderController {
       @NotNull @ApiParam(value = "Request body")
       @Validated @RequestBody OrderVo orderVo) {
     final List<OrderItemVo> items = orderVo.getItems();
+    orderVo.setTotal(0D);
 
     for (OrderItemVo item : items) {
       try {
@@ -134,6 +135,7 @@ public class OrderController {
       }
       productService.decrementQuantities(item);
       orderItemService.fillPrices(item);
+      orderVo.incTotal(item.getPrice() * item.getQuantity());
     }
 
     Order order;

@@ -10,6 +10,7 @@ public class OrderVo {
   private List<OrderItemVo> items;
   private Long id;
   private String status;
+  private Double total;
 
   public OrderVo() {
     // Do nothing
@@ -22,6 +23,7 @@ public class OrderVo {
     setItems(builder.items);
     setId(builder.id);
     setStatus(builder.status);
+    setTotal(builder.total);
   }
 
   public static Builder newBuilder() {
@@ -76,8 +78,20 @@ public class OrderVo {
     this.status = status;
   }
 
+  public Double getTotal() {
+    return total;
+  }
+
+  public void setTotal(Double total) {
+    this.total = total;
+  }
+
   public void addItem(OrderItemVo orderItemVo) {
     this.items.add(orderItemVo);
+  }
+
+  public void incTotal(Double price) {
+    this.total += price;
   }
 
   public static final class Builder {
@@ -87,6 +101,7 @@ public class OrderVo {
     private List<OrderItemVo> items;
     private Long id;
     private String status;
+    private Double total;
 
     private Builder() {
     }
@@ -121,6 +136,11 @@ public class OrderVo {
       return this;
     }
 
+    public Builder withTotal(Double total) {
+      this.total = total;
+      return this;
+    }
+
     public OrderVo build() {
       return new OrderVo(this);
     }
@@ -129,12 +149,13 @@ public class OrderVo {
   @Override
   public String toString() {
     return "OrderVo{" +
-        "date=" + date +
+        "date='" + date + '\'' +
         ", customer='" + customer + '\'' +
         ", shipping=" + shipping +
         ", items=" + items +
         ", id=" + id +
         ", status='" + status + '\'' +
+        ", total=" + total +
         '}';
   }
 }
